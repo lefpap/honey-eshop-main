@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  # db:
+  #   image: postgres
+  #   environment:
+  #     POSTGRES_DB: honeyeshopdb
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: honey
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      # SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/honeyeshopdb
+      # SPRING_DATASOURCE_USERNAME: postgres
+      # SPRING_DATASOURCE_PASSWORD: honey
+    # depends_on:
+    #   - db
+
+  admin-ui:
+    build:
+      context: ./admin-ui
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:8080
+    depends_on:
+      - api
+
+  user-ui:
+    build:
+      context: ./user-ui
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:8080
+    depends_on:
+      - api
+
+volumes:
+  db-data:
