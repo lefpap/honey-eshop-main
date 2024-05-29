@@ -1,0 +1,9 @@
+[submodule "api"]
+	path = api
+	url = https://github.com/lefpap/honey-eshop-server.git
+[submodule "admin-ui"]
+	path = admin-ui
+	url = https://github.com/lefpap/honey-eshop-admin-ui.git
+[submodule "user-ui"]
+	path = user-ui
+	url = https://github.com/lefpap/honey-eshop-user-ui.git
